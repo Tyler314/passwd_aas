@@ -11,7 +11,13 @@ class Get:
         self.group_last_updated = -1
 
     def users(self, name=None, uid=None, gid=None, comment=None, home=None, shell=None):
-        pass
+        query = Passwd(name, None, uid, gid, comment, home, shell)
+        self._read_group_file()
+        output = []
+        for line in self.passwd_map.values():
+            if query == line:
+                output.append(vars(line))
+        return output
 
     def groups(self):
         pass
