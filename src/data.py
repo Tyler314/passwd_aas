@@ -20,7 +20,7 @@ class Passwd:
 
 @dataclass
 class Group:
-    group_name: str
+    name: str
     passwd: str
-    group_id: str
-    group_list: list[str]
+    gid: str
+    members: list[str]
