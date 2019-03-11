@@ -59,4 +59,7 @@ class Get:
                     group = Group(*values, user_list)
                     self.group_map[values[0]] = group
                     for user in user_list:
-                        self.groups_by_user_name.get(user, []).append(group)
+                        if user not in self.groups_by_user_name:
+                            self.groups_by_user_name[user] = [group]
+                        else:
+                            self.groups_by_user_name[user].append(group)
