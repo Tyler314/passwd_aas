@@ -2,6 +2,9 @@ from .data import Passwd, Group
 import os
 
 
+__all__ = ['Get']
+
+
 class Get:
     def __init__(self, path_to_group, path_to_passwd):
         self.path_to_group = path_to_group
