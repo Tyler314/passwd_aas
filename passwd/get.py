@@ -53,7 +53,9 @@ class Get:
             with open(self.path_to_group, "r") as f:
                 for line in f:
                     *values, users = line.strip().split(':')
-                    user_list = list(users)
+                    user_list = [s.strip() for s in users.split(",")]
+                    if user_list == [""]:
+                        user_list = []
                     group = Group(*values, user_list)
                     self.group_map[values[0]] = group
                     for user in user_list:

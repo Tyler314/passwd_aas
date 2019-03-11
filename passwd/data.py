@@ -21,6 +21,6 @@ class Passwd:
 @dataclass
 class Group:
     name: str
-    passwd: str
+    password: str
     gid: str
     members: list
