@@ -4,8 +4,8 @@ from dataclasses import dataclass
 class Passwd:
     name: str
     password: str
-    uid: int
-    gid: int
+    uid: str
+    gid: str
     comment: str
     home: str
     shell: str
@@ -23,4 +23,4 @@ class Group:
     name: str
     passwd: str
     gid: str
-    members: list[str]
+    members: list

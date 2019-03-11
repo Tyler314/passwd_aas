@@ -6,9 +6,9 @@ __all__ = ['Get']
 
 
 class Get:
-    def __init__(self, path_to_group, path_to_passwd):
-        self.path_to_group = path_to_group
+    def __init__(self, path_to_passwd, path_to_group):
         self.path_to_passwd = path_to_passwd
+        self.path_to_group = path_to_group
         self.passwd_map = dict()
         self.passwd_last_updated = -1
         self.group_map = dict()
@@ -44,7 +44,7 @@ class Get:
             self.passwd_last_updated = os.path.getmtime(self.path_to_passwd)
             with open(self.path_to_passwd, "r") as f:
                 for line in f:
-                    values = line.split(":")
+                    values = line.strip().split(":")
                     self.passwd_map[values[2]] = Passwd(*values)
 
     def _read_group_file(self):
@@ -52,7 +52,7 @@ class Get:
             self.group_last_updated = os.path.getmtime(self.path_to_group)
             with open(self.path_to_group, "r") as f:
                 for line in f:
-                    *values, users = line.split(':')
+                    *values, users = line.strip().split(':')
                     user_list = list(users)
                     group = Group(*values, user_list)
                     self.group_map[values[0]] = group

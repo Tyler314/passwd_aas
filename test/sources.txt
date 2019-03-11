@@ -1,0 +1,2 @@
+passwd file: http://www.softpanorama.org/Access_control/Accounts/passwd_file.shtml
+group file: http://linuxconfig.net/manuals/howto/etc-group-file.html
