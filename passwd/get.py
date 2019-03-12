@@ -2,7 +2,7 @@ from .data import Passwd, Group
 import os
 
 
-__all__ = ['Get']
+__all__ = ["Get"]
 
 
 class Get:
@@ -40,8 +40,11 @@ class Get:
         self._read_group_file()
         output = []
         for line in self.group_map.values():
-            if (name is None or name == line.name) and (gid is None or gid == line.gid) and \
-                    (members is None or set(members).issubset(set(line.members))):
+            if (
+                (name is None or name == line.name)
+                and (gid is None or gid == line.gid)
+                and (members is None or set(members).issubset(set(line.members)))
+            ):
                 output.append(vars(line))
         return output
 
@@ -78,7 +81,7 @@ class Get:
                     line = line.strip()
                     if line == "" or line.startswith("#"):
                         continue
-                    *values, users = line.split(':')
+                    *values, users = line.split(":")
                     values[2] = int(values[2])
                     user_list = [s.strip() for s in users.split(",")]
                     if user_list == [""]:

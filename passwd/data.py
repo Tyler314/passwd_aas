@@ -1,10 +1,12 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class Passwd:
     """
     Data class used to store user fields of the passwd file
     """
+
     name: str
     password: str
     uid: int
@@ -23,11 +25,13 @@ class Passwd:
                 return False
         return True
 
+
 @dataclass
 class Group:
     """
     Data class used to store group fields of the group file
     """
+
     name: str
     password: str
     gid: int

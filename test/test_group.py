@@ -3,7 +3,6 @@ import unittest
 
 
 class TestPasswd(unittest.TestCase):
-
     def setUp(self):
         self.get = passwd.Get("passwd", "group")
 
@@ -43,13 +42,28 @@ class TestPasswd(unittest.TestCase):
     def test_single_query(self):
         self.assertEqual(self.get.groups(name="root"), self._group_to_list("root:x:0:"))
         self.assertEqual(self.get.groups(name="adm"), self._group_to_list("adm:x:4:username"))
-        self.assertEqual(self.get.groups(name="cdrom"), self._group_to_list("cdrom:x:24:username, username1"))
+        self.assertEqual(
+            self.get.groups(name="cdrom"), self._group_to_list("cdrom:x:24:username, username1")
+        )
         self.assertEqual(self.get.groups(gid=41), self._group_to_list("gnats:x:41:"))
-        self.assertEqual(self.get.groups(gid=24), self._group_to_list("cdrom:x:24:username, username1"))
+        self.assertEqual(
+            self.get.groups(gid=24), self._group_to_list("cdrom:x:24:username, username1")
+        )
         self.assertEqual(self.get.groups(gid=29), self._group_to_list("audio:x:29:pulse"))
         self.assertEqual(self.get.groups(gid=102), self._group_to_list("crontab:x:102:"))
-        self.assertEqual(self.get.groups(members=["username"]), self._group_to_list("adm:x:4:username", "dialout:x:20:username", "cdrom:x:24:username, username1", "www-data:x:33:username", "plugdev:x:46:username"))
-        self.assertEqual(self.get.groups(members=["pulse"]), self._group_to_list("audio:x:29:pulse"))
+        self.assertEqual(
+            self.get.groups(members=["username"]),
+            self._group_to_list(
+                "adm:x:4:username",
+                "dialout:x:20:username",
+                "cdrom:x:24:username, username1",
+                "www-data:x:33:username",
+                "plugdev:x:46:username",
+            ),
+        )
+        self.assertEqual(
+            self.get.groups(members=["pulse"]), self._group_to_list("audio:x:29:pulse")
+        )
 
     def test_bad_query(self):
         self.assertEqual(self.get.groups(name="foo"), [])
@@ -64,16 +78,33 @@ class TestPasswd(unittest.TestCase):
 
     def test_multiple_queries(self):
         self.assertEqual(self.get.groups(name="root", gid=0), self._group_to_list("root:x:0:"))
-        self.assertEqual(self.get.groups(name="adm", gid=4), self._group_to_list("adm:x:4:username"))
-        self.assertEqual(self.get.groups(name="cdrom", gid=24, members=["username"]), self._group_to_list("cdrom:x:24:username, username1"))
-        self.assertEqual(self.get.groups(name="cdrom", gid=24, members=["username", "username1"]), self._group_to_list("cdrom:x:24:username, username1"))
-        self.assertEqual(self.get.groups(name="plugdev", members=["username"]), self._group_to_list("plugdev:x:46:username"))
+        self.assertEqual(
+            self.get.groups(name="adm", gid=4), self._group_to_list("adm:x:4:username")
+        )
+        self.assertEqual(
+            self.get.groups(name="cdrom", gid=24, members=["username"]),
+            self._group_to_list("cdrom:x:24:username, username1"),
+        )
+        self.assertEqual(
+            self.get.groups(name="cdrom", gid=24, members=["username", "username1"]),
+            self._group_to_list("cdrom:x:24:username, username1"),
+        )
+        self.assertEqual(
+            self.get.groups(name="plugdev", members=["username"]),
+            self._group_to_list("plugdev:x:46:username"),
+        )
 
     def test_group_by_uid(self):
-        self.assertEqual(self.get.groups_by_uid(uid=123),  self._group_to_list("adm:x:4:username", "dialout:x:20:username", "cdrom:x:24:username, username1", "www-data:x:33:username", "plugdev:x:46:username"))
-        self.assertEqual(self.get.groups_by_uid(uid=789),  self._group_to_list("cdrom:x:24:username, username1"))
-
-
-
-
-
+        self.assertEqual(
+            self.get.groups_by_uid(uid=123),
+            self._group_to_list(
+                "adm:x:4:username",
+                "dialout:x:20:username",
+                "cdrom:x:24:username, username1",
+                "www-data:x:33:username",
+                "plugdev:x:46:username",
+            ),
+        )
+        self.assertEqual(
+            self.get.groups_by_uid(uid=789), self._group_to_list("cdrom:x:24:username, username1")
+        )

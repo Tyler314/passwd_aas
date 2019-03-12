@@ -77,4 +77,3 @@ def groups_uid(gid):
     if not out:
         abort(404)
     return json.dumps(out.pop())
-
