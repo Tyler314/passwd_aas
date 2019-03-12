@@ -7,8 +7,8 @@ class Passwd:
     """
     name: str
     password: str
-    uid: str
-    gid: str
+    uid: int
+    gid: int
     comment: str
     home: str
     shell: str
@@ -30,5 +30,5 @@ class Group:
     """
     name: str
     password: str
-    gid: str
+    gid: int
     members: list

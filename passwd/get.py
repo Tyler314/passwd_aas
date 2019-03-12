@@ -60,7 +60,12 @@ class Get:
             self.passwd_last_updated = os.path.getmtime(self.path_to_passwd)
             with open(self.path_to_passwd, "r") as f:
                 for line in f:
-                    values = line.strip().split(":")
+                    line = line.strip()
+                    if line == "" or line.startswith("#"):
+                        continue
+                    values = line.split(":")
+                    values[2] = int(values[2])
+                    values[3] = int(values[3])
                     self.passwd_map[values[2]] = Passwd(*values)
 
     # Private method that updates the class field 'group_map' with data classes of all the groups in the group file.
@@ -70,7 +75,11 @@ class Get:
             self.group_last_updated = os.path.getmtime(self.path_to_group)
             with open(self.path_to_group, "r") as f:
                 for line in f:
-                    *values, users = line.strip().split(':')
+                    line = line.strip()
+                    if line == "" or line.startswith("#"):
+                        continue
+                    *values, users = line.split(':')
+                    values[2] = int(values[2])
                     user_list = [s.strip() for s in users.split(",")]
                     if user_list == [""]:
                         user_list = []
