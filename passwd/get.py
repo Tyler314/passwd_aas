@@ -21,10 +21,11 @@ class Get:
         self.group_last_updated = -1
         self.groups_by_user_name = dict()
 
-    # Return list of user dictionaries. Optional keyword arguments used to filter users of interest.
-    # If no arguments specified, returns all users from the specified passwd file.
-    # If no user is found based on search criteria, return an empty list.
     def users(self, name=None, uid=None, gid=None, comment=None, home=None, shell=None):
+        """Return list of user dictionaries. Optional keyword arguments used to filter users of interest.
+        If no arguments specified, returns all users from the specified passwd file.
+        If no user is found based on search criteria, return an empty list.
+        """
         query = Passwd(name, None, uid, gid, comment, home, shell)
         self._read_passwd_file()
         output = []
@@ -33,10 +34,11 @@ class Get:
                 output.append(vars(line))
         return output
 
-    # Return list of dictionaries. Optional keyword arguments used to filter groups of interest.
-    # If no arguments specified, returns all groups from the specified group file.
-    # If no group is found based on search criteria, return an empty list.
     def groups(self, name=None, gid=None, members=None):
+        """Return list of dictionaries. Optional keyword arguments used to filter groups of interest.
+        If no arguments specified, returns all groups from the specified group file.
+        If no group is found based on search criteria, return an empty list.
+        """
         self._read_group_file()
         output = []
         for line in self.group_map.values():
@@ -48,17 +50,19 @@ class Get:
                 output.append(vars(line))
         return output
 
-    # Return list of dictionaries. Special case, look up group based on required argument uid.
-    # If no group exists with specified uid, return an empty list.
     def groups_by_uid(self, uid):
+        """Return list of dictionaries. Special case, look up group based on required argument uid.
+        If no group exists with specified uid, return an empty list.
+        """
         self._read_passwd_file()
         self._read_group_file()
         user_name = self.passwd_map[uid].name
         return [vars(group) for group in self.groups_by_user_name.get(user_name, [])]
 
-    # Private method that updates the class field 'passwd_map' with data classes of all the users in the passwd file.
-    # Only updates if the file was modified since the last time the method was called. Keep track of last modified time.
     def _read_passwd_file(self):
+        """Private method that updates the class field 'passwd_map' with data classes of all the users in the passwd file.
+        Only updates if the file was modified since the last time the method was called. Keep track of last modified time.
+        """
         if os.path.getmtime(self.path_to_passwd) != self.passwd_last_updated:
             self.passwd_last_updated = os.path.getmtime(self.path_to_passwd)
             with open(self.path_to_passwd, "r") as f:
@@ -71,9 +75,10 @@ class Get:
                     values[3] = int(values[3])
                     self.passwd_map[values[2]] = Passwd(*values)
 
-    # Private method that updates the class field 'group_map' with data classes of all the groups in the group file.
-    # Only updates if the file was modified since the last time the method was called. Keep track of last modified time.
     def _read_group_file(self):
+        """Private method that updates the class field 'group_map' with data classes of all the groups in the group file.
+        Only updates if the file was modified since the last time the method was called. Keep track of last modified time.
+        """
         if os.path.getmtime(self.path_to_group) != self.group_last_updated:
             self.group_last_updated = os.path.getmtime(self.path_to_group)
             with open(self.path_to_group, "r") as f:
