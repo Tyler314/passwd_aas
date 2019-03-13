@@ -11,7 +11,7 @@ def read(fname):
 
 
 setup(
-    name="passwd",
+    name="passwd-aas",
     packages=find_packages(exclude=("tests", "tests.*")),
     python_requires=">=3.7",
     install_requires=["flask"],
@@ -19,4 +19,5 @@ setup(
     description="Passwd as a service coding challenge.",
     long_description=read("README.md"),
     author="Tyler Roberts",
+    entry_points={"console_scripts": ["passwd-aas=passwd.__main__:main"]},
 )

@@ -5,7 +5,7 @@ import json
 import passwd
 
 app = Flask("passwd_aas")
-GET = passwd.Get("/etc/passwd", "/etc/group")
+GET = passwd.Get()
 
 
 @app.route("/users")
@@ -77,3 +77,9 @@ def groups_uid(gid):
     if not out:
         abort(404)
     return json.dumps(out.pop())
+
+
+def run_app(passwd_path, group_path, port):
+    GET.set_passwd_path(passwd_path)
+    GET.set_group_path(group_path)
+    app.run(port=port)

@@ -12,14 +12,22 @@ class Get:
     """
 
     # Initialize class with path to the passwd and group files.
-    def __init__(self, path_to_passwd, path_to_group):
-        self.path_to_passwd = path_to_passwd
-        self.path_to_group = path_to_group
+    def __init__(self):
+        self.path_to_passwd = "/etc/passwd"
+        self.path_to_group = "/etc/group"
         self.passwd_map = dict()
         self.passwd_last_updated = -1
         self.group_map = dict()
         self.group_last_updated = -1
         self.groups_by_user_name = dict()
+
+    def set_passwd_path(self, path):
+        self.path_to_passwd = path
+        self.passwd_last_updated = -1
+
+    def set_group_path(self, path):
+        self.path_to_group = path
+        self.group_last_updated = -1
 
     def users(self, name=None, uid=None, gid=None, comment=None, home=None, shell=None):
         """Return list of user dictionaries. Optional keyword arguments used to filter users of interest.

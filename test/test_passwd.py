@@ -1,16 +1,22 @@
 import passwd
 import unittest
+import os
+
+HERE = os.path.abspath(os.path.dirname(__file__))
 
 
 class TestPasswd(unittest.TestCase):
     def setUp(self):
-        self.get = passwd.Get("passwd", "group")
+        self.get = passwd.Get()
+        self.get.set_passwd_path(HERE + os.sep + "passwd")
+        self.get.set_group_path(HERE + os.sep + "group")
 
     def _user_to_list(self, *args):
         output = []
         for arg in args:
             name, password, uid, gid, comment, home, shell = arg.strip().split(":")
             d = dict()
+
             d["name"] = name
             d["password"] = password
             d["uid"] = int(uid)
