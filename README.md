@@ -17,17 +17,22 @@ $ python setup.py install
 
 Once installed, you can use the service on the command line with the command `passwd-aas`
 
-The following arguments ar available:
+The following arguments are available:
 
--r, --run: Runs the application. Required to run.
+-r, --run:
+> Runs the application. Required to run.
 
--p, --passwd: Specify the full file path to the passwd file. This is optional, default is `/etc/passwd`.
+-p, --passwd:
+> Specify the full file path to the passwd file. This is optional, default is `/etc/passwd`.
 
--g, --group: Specify the full path to the group file. This is optional, default is `/etc/group`.
+-g, --group:
+> Specify the full path to the group file. This is optional, default is `/etc/group`.
 
--v, --version: Display the version number.
+-v, --version:
+> Display the version number.
 
---port: Specify the port to run the application on, on localhost. This is optional, default is port 8080.
+--port:
+> Specify the port to run the application on, on localhost. This is optional, default is port 8080.
 
 For example, running `passwd-aas --run` will run the application, using `/etc/passwd` and `/etc/group, and run on 
 `http://localhost:8080`
