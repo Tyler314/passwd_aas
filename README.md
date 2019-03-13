@@ -7,8 +7,9 @@ passwd_aas reqires python 3.7 or newer
 to install,
 1) clone this directory
 2) python setup.py install
+
 ```bash
-$ git clone git@github.com:Tyler314/passwd_aas.git
+$ git clone https://github.com/Tyler314/passwd_aas.git
 $ cd passwd_aas
 $ python setup.py install
 ```
@@ -37,36 +38,36 @@ The following arguments are available:
 For example, running `passwd-aas --run` will run the application, using `/etc/passwd` and `/etc/group`, and run on 
 `http://localhost:8080`
 
-# Within Web Browser
+# Using HTTP Request
 
 Once the application is running, you can use the following HTTP request methods on your local host, at the port you
 specified (8080 if you did not specify a port).
 
 GET /users:
-> Returns a list of all users on the system, as defined in the passwd file.
+> Returns a json list of all users on the system, as defined in the passwd file.
 
 GET
 /users/query\[?name=\<nq>]\[&uid=\<uq>]\[&gid=\<gq>]\[&comment=\<cq>]\[&home=\<hq>]\[&shell=\<sq>]
-> Returns a list of users matching all of the specified query fields. The brackets indicate that any of the queries may
+> Returns a json list of users matching all of the specified query fields. The brackets indicate that any of the queries may
 be supplied.
 
 GET /users/\<uid>
-> Returns a single user with \<uid>. Return 404 if \<uid> is not found.
+> Returns a single user with \<uid>, as a json. Return 404 if \<uid> is not found.
 
 GET /users/\<uid>/groups
-> Returns all the groups for a given user.
+> Returns a json list of all the groups for a given user.
 
 GET /groups
-> Returns a list of all groups on the system, as defined by the group file.
+> Returns a json list of all groups on the system, as defined by the group file.
 
 GET /groups/query\[?name=\<nq>]\[&gid=\<gq>]\[&member=\<mq1>\[&member=\<mq2>]\[&...]]
-> Returns a list of groups matching all of the specified query fields. The brackets indicate that any of the queries may
+> Returns a json list of groups matching all of the specified query fields. The brackets indicate that any of the queries may
 be supplied.
 
 GET /groups/<gid>
-> Return a single group with \<gid>. Return 404 if \<gid> is not found.
+> Return a single group with \<gid>, in json format. Return 404 if \<gid> is not found.
 
-# Within Python
+# Python API
 
 The application is also able to run within a Python environment. The business logic is separated from networking logic, 
 within `get.py` and `app.py` respectively. To use the business logic, create a Get object, and use its api.
@@ -78,22 +79,39 @@ getter = passwd_aas.Get()
 
 The Get api has the following:
 
-set\_passwd\_path(path):
+`getter.set_passwd_path(path)`:
     
 > Set the full path to the passwd file
 
-set\_group\_path(path):
+`getter.set_group_path(path)`:
 
 > Set the full path to the group file
 
-users(name, uid, gid, comment, home, shell):
+`getter.users(name, uid, gid, comment, home, shell)`:
 
 > Return list of user dictionaries. Optional keyword arguments used to filter users of interest. If no arguments specified, returns all users from the specified passwd file. If no user is found based on search criteria, return an empty list.
 
-groups(name, gid, members):
+`getter.groups(name, gid, members)`:
 
 > Return list of dictionaries. Optional keyword arguments used to filter groups of interest. If no arguments specified, returns all groups from the specified group file. If no group is found based on search criteria, return an empty list.
 
-groups\_by\_uid(uid):
+`getter.groups_by_uid(uid)`:
 > Return list of dictionaries. Special case, look up group based on required argument uid. If no group exists with specified uid, return an empty list.
 
+# Development
+
+To run this application in the development stage, you can run `setup.py` in develop
+
+```bash
+$ git clone https://github.com/Tyler314/passwd_aas.git
+$ cd passwd_aas
+$ python setup.py develop
+```
+
+This will remain the source code intact.
+
+To run tests, run the following
+
+```bash
+$ python setup.py test
+```

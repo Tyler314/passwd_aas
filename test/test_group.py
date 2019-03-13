@@ -33,7 +33,7 @@ class TestPasswd(unittest.TestCase):
         groups = dict()
         for group in self.get.groups():
             groups[group["name"]] = group
-        with open("group", "r") as f:
+        with open(HERE + os.sep + "group", "r") as f:
             for line in f:
                 name, password, gid, members = line.strip().split(":")
                 members = [s.strip() for s in members.split(",")]

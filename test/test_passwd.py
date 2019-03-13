@@ -33,7 +33,7 @@ class TestPasswd(unittest.TestCase):
         users = dict()
         for user in self.get.users():
             users[user["name"]] = user
-        with open("passwd", "r") as f:
+        with open(HERE + os.sep + "passwd", "r") as f:
             for line in f:
                 name, password, uid, gid, comment, home, shell = line.strip().split(":")
                 self.assertEqual(name, users[name]["name"])
@@ -75,7 +75,7 @@ class TestPasswd(unittest.TestCase):
             ),
         )
         compare = []
-        with open("passwd", "r") as f:
+        with open(HERE + os.sep + "passwd", "r") as f:
             for line in f:
                 name, password, uid, gid, comment, home, shell = line.strip().split(":")
                 if shell == "/sbin/nologin":
