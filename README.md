@@ -34,7 +34,7 @@ The following arguments are available:
 --port:
 > Specify the port to run the application on, on localhost. This is optional, default is port 8080.
 
-For example, running `passwd-aas --run` will run the application, using `/etc/passwd` and `/etc/group, and run on 
+For example, running `passwd-aas --run` will run the application, using `/etc/passwd` and `/etc/group`, and run on 
 `http://localhost:8080`
 
 # Within Web Browser
