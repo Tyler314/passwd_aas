@@ -113,3 +113,7 @@ class TestPasswd(unittest.TestCase):
         self.assertEqual(
             self.get.groups_by_uid(uid=789), self._group_to_list("cdrom:x:24:username, username1")
         )
+
+
+if __name__ == "__main__":
+    unittest.main()

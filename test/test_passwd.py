@@ -118,3 +118,7 @@ class TestPasswd(unittest.TestCase):
             self.get.users(uid=86, gid=86, shell="/sbin/nologin"),
             self._user_to_list("sabayon:x:86:86:Sabayon user:/home/sabayon:/sbin/nologin"),
         )
+
+
+if __name__ == "__main__":
+    unittest.main()
