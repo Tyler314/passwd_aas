@@ -11,7 +11,6 @@ class Get:
     Framework independent, used with flask but can be used by any framework or library desirable.
     """
 
-    # Initialize class with path to the passwd and group files.
     def __init__(self):
         """Create a Get object.
 

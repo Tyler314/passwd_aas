@@ -16,7 +16,6 @@ class TestPasswd(unittest.TestCase):
         for arg in args:
             name, password, uid, gid, comment, home, shell = arg.strip().split(":")
             d = dict()
-
             d["name"] = name
             d["password"] = password
             d["uid"] = int(uid)

@@ -10,6 +10,8 @@ GET = passwd.Get()
 
 @app.route("/users")
 def users():
+    """Returns a JSON of all users on the system.
+    """
     out = GET.users()
     if not out:
         abort(404)
@@ -18,6 +20,8 @@ def users():
 
 @app.route("/users/query")
 def users_query():
+    """Returns a list of users matching all of the specified query fields.
+    """
     try:
         name = request.args.get("name")
         uid = int(request.args.get("uid")) if request.args.get("uid") is not None else None

@@ -20,4 +20,5 @@ setup(
     long_description=read("README.md"),
     author="Tyler Roberts",
     entry_points={"console_scripts": ["passwd-aas=passwd.__main__:main"]},
+    test_suite="passwd.test.test_all",
 )
