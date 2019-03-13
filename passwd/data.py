@@ -15,9 +15,10 @@ class Passwd:
     home: str
     shell: str
 
-    # Override equals function, used to compare two Passwd objects in the Get class.
-    # Compare each field for equality, and disregard if either field is None.
     def __eq__(self, other):
+        """Override equals function, used to compare two Passwd objects in the Get class.
+        Compare each field for equality, and disregard if either field is None.
+        """
         for key in self.__dict__:
             if self.__dict__.get(key) is None or other.__dict__.get(key) is None:
                 continue
