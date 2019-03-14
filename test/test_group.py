@@ -114,6 +114,20 @@ class TestPasswd(unittest.TestCase):
             self.get.groups_by_uid(uid=789), self._group_to_list("cdrom:x:24:username, username1")
         )
 
+    def test_update_group_file(self):
+        self.get.set_group_path(HERE + os.sep + "group2")
+        self.get.groups()
+        with open(HERE + os.sep + "group2") as f:
+            for line in f:
+                name, password, gid, members = line.strip().split(":")
+                members = [s.strip() for s in members.split(",")]
+                if members == [""]:
+                    members = []
+                gid = int(gid)
+                self.assertEqual(self.get.group_map[name].name, name)
+                self.assertEqual(self.get.group_map[name].gid, gid)
+                self.assertEqual(self.get.group_map[name].members, members)
+
 
 if __name__ == "__main__":
     unittest.main()

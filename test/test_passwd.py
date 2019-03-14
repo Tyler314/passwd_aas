@@ -119,6 +119,21 @@ class TestPasswd(unittest.TestCase):
             self._user_to_list("sabayon:x:86:86:Sabayon user:/home/sabayon:/sbin/nologin"),
         )
 
+    def test_update_passwd_file(self):
+        self.get.set_passwd_path(HERE + os.sep + "passwd2")
+        self.get.users()
+        with open(HERE + os.sep + "passwd2") as f:
+            for line in f:
+                name, password, uid, gid, comment, home, shell = line.strip().split(":")
+                uid = int(uid)
+                gid = int(gid)
+                self.assertEqual(self.get.passwd_map[uid].name, name)
+                self.assertEqual(self.get.passwd_map[uid].uid, uid)
+                self.assertEqual(self.get.passwd_map[uid].gid, gid)
+                self.assertEqual(self.get.passwd_map[uid].comment, comment)
+                self.assertEqual(self.get.passwd_map[uid].home, home)
+                self.assertEqual(self.get.passwd_map[uid].shell, shell)
+
 
 if __name__ == "__main__":
     unittest.main()
