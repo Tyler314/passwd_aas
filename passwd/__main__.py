@@ -5,7 +5,7 @@ from .app import run_app
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--passwd", "-p", help="passwd filepath", default="/etc/passwd")
-    parser.add_argument("--group", "-g", help="group filepath", default="etc/group")
+    parser.add_argument("--group", "-g", help="group filepath", default="/etc/group")
     parser.add_argument("--run", "-r", action="store_true", help="run program")
     parser.add_argument("--version", "-v", action="store_true", help="show version")
     parser.add_argument("--port", help="specify port number", default=8080)
