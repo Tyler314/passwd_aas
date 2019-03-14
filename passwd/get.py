@@ -61,7 +61,6 @@ class Get:
         self.groups_by_user_name.clear()
         self.passwd_map.clear()
 
-
     def set_group_path(self, path):
         """Set the full path to the group file, and resets the time last update field.
 
