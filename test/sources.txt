@@ -1,2 +1,4 @@
 passwd file: http://www.softpanorama.org/Access_control/Accounts/passwd_file.shtml
+passwd2 file: https://www.ibm.com/support/knowledgecenter/en/ssw_aix_71/com.ibm.aix.security/passwords_etc_passwd_file.htm
 group file: http://linuxconfig.net/manuals/howto/etc-group-file.html
+group2 file: http://www.softpanorama.org/Access_control/Groups/etc_groups_file.shtml

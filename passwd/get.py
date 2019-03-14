@@ -57,6 +57,10 @@ class Get:
         """
         self.path_to_passwd = path
         self.passwd_last_updated = -1
+        self.group_last_updated = -1
+        self.groups_by_user_name.clear()
+        self.passwd_map.clear()
+
 
     def set_group_path(self, path):
         """Set the full path to the group file, and resets the time last update field.
@@ -69,7 +73,10 @@ class Get:
             None
         """
         self.path_to_group = path
+        self.passwd_last_updated = -1
         self.group_last_updated = -1
+        self.groups_by_user_name.clear()
+        self.group_map.clear()
 
     def users(self, name=None, uid=None, gid=None, comment=None, home=None, shell=None):
         """Return list of user dictionaries. Optional keyword arguments used to filter users of interest.

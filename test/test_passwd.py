@@ -33,7 +33,7 @@ class TestPasswd(unittest.TestCase):
         users = dict()
         for user in self.get.users():
             users[user["name"]] = user
-        with open("passwd", "r") as f:
+        with open(HERE + os.sep + "passwd", "r") as f:
             for line in f:
                 name, password, uid, gid, comment, home, shell = line.strip().split(":")
                 self.assertEqual(name, users[name]["name"])
@@ -75,7 +75,7 @@ class TestPasswd(unittest.TestCase):
             ),
         )
         compare = []
-        with open("passwd", "r") as f:
+        with open(HERE + os.sep + "passwd", "r") as f:
             for line in f:
                 name, password, uid, gid, comment, home, shell = line.strip().split(":")
                 if shell == "/sbin/nologin":
@@ -118,3 +118,22 @@ class TestPasswd(unittest.TestCase):
             self.get.users(uid=86, gid=86, shell="/sbin/nologin"),
             self._user_to_list("sabayon:x:86:86:Sabayon user:/home/sabayon:/sbin/nologin"),
         )
+
+    def test_update_passwd_file(self):
+        self.get.set_passwd_path(HERE + os.sep + "passwd2")
+        self.get.users()
+        with open(HERE + os.sep + "passwd2") as f:
+            for line in f:
+                name, password, uid, gid, comment, home, shell = line.strip().split(":")
+                uid = int(uid)
+                gid = int(gid)
+                self.assertEqual(self.get.passwd_map[uid].name, name)
+                self.assertEqual(self.get.passwd_map[uid].uid, uid)
+                self.assertEqual(self.get.passwd_map[uid].gid, gid)
+                self.assertEqual(self.get.passwd_map[uid].comment, comment)
+                self.assertEqual(self.get.passwd_map[uid].home, home)
+                self.assertEqual(self.get.passwd_map[uid].shell, shell)
+
+
+if __name__ == "__main__":
+    unittest.main()
