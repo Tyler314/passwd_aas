@@ -39,6 +39,8 @@ def users_query():
 
 @app.route("/users/<int:uid>")
 def users_uid(uid):
+    """Return a single user with specified uid. Return 404 if the uid is not found.
+    """
     out = GET.users(uid=uid)
     if not out:
         abort(404)
@@ -47,6 +49,8 @@ def users_uid(uid):
 
 @app.route("/users/<int:uid>/groups")
 def groups_of_user(uid):
+    """Return all the groups for a given user.
+    """
     out = GET.groups_by_uid(uid)
     if not out:
         abort(404)
@@ -55,6 +59,8 @@ def groups_of_user(uid):
 
 @app.route("/groups")
 def groups():
+    """Return a list of all groups on the system, a defined by the group file.
+    """
     out = GET.groups()
     if not out:
         abort(404)
@@ -63,6 +69,8 @@ def groups():
 
 @app.route("/groups/query")
 def groups_query():
+    """Returns a list of groups matching all of the specified query fields.
+    """
     try:
         name = request.args.get("name")
         gid = int(request.args.get("gid")) if request.args.get("gid") is not None else None
@@ -77,6 +85,8 @@ def groups_query():
 
 @app.route("/groups/<int:gid>")
 def groups_uid(gid):
+    """Return a single group with the gid. Return 404 if the gid is not found
+    """
     out = GET.groups(gid=gid)
     if not out:
         abort(404)
@@ -84,6 +94,8 @@ def groups_uid(gid):
 
 
 def run_app(passwd_path, group_path, port):
+    """Entry point for the application
+    """
     GET.set_passwd_path(passwd_path)
     GET.set_group_path(group_path)
     app.run(port=port)
